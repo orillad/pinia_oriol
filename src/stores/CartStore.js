@@ -1,3 +1,4 @@
+import { groupBy } from "lodash"
 import { defineStore } from "pinia";
 
 export const useCartStore = defineStore("CartStore", {
@@ -9,11 +10,20 @@ export const useCartStore = defineStore("CartStore", {
     actions: {
         addToCart(count, product) {
             count = parseInt(count)
-            for (let index = 0; index < count; index++) {
-                this.items.push(product);
+            this.$patch(state => {
+                for (let index = 0; index < count; index++) {
+                    state.items.push({ ...product });
+                }
+            })
 
-            }
 
         }
+    },
+    getters: {
+        count: (state) => state.items.length,
+
+        isEmpty: (state) => state.count === 0,
+        grouped: state => groupBy(state.items, item => item.name)
+
     }
 })
