@@ -8,11 +8,11 @@ export const useCartStore = defineStore("CartStore", {
         }
     },
     actions: {
-        addToCart(count, product) {
+        addToCart(count, item) {
             count = parseInt(count)
             this.$patch(state => {
                 for (let index = 0; index < count; index++) {
-                    state.items.push({ ...product });
+                    state.items.push({ ...item });
                 }
             })
         },
@@ -22,8 +22,8 @@ export const useCartStore = defineStore("CartStore", {
             });
         },
         setItemCount(item, count) {
+            this.clearItem(item.name)
             this.addToCart(count, item);
-            this.clearItem(item)
         }
     },
     getters: {

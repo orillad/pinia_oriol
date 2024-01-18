@@ -19,9 +19,12 @@ const active = ref(false);
     <AppModalOverlay :active="active" @close="active = false">
       <div v-if="!cartStore.isEmpty">
         <ul class="items-in-cart">
-          <CartItem v-for="(items, name) in cartStore.grouped" :key="name" :product="items[0]"
-            :count="cartStore.groupCount(name)" @updateCount="cartStore.setItemCount(items[0, $event])"
-            @clear="cartStore.clearItem(name)" />
+          <CartItem v-for="(items, name) in cartStore.grouped" 
+          :key="name" 
+          :product="items[0]"
+          :count="cartStore.groupCount(name)" 
+          @updateCount="cartStore.setItemCount(items[0, $event])"
+          @clear="cartStore.clearItem(name)" />
           <!-- <CartItem :product="{ name: 'Pineapple Gum', price: 3 }" :count="5" @updateCount="" @clear="" /> -->
         </ul>
         <div class="flex justify-end text-2xl mb-5">
